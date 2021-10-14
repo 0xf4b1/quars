@@ -460,71 +460,67 @@ impl GoldleafHandler {
         out.write_to(b"GLCO", 0); // OUT MAGIC
 
         match cmd.read_u32() {
-            0 => {
+            1 => {
                 // GetDriveCount
                 // not implemented
                 out.write_u8(0);
             }
-            1 => {
+            2 => {
                 // GetDriveInfo
                 // not implemented
             }
-            2 => {
+            3 => {
                 // StatPath
                 self.stat(cmd, &mut out)
             }
-            3 => {
+            4 => {
                 // GetFileCount
                 self.get_count(cmd, &mut out, false);
             }
-            4 => {
+            5 => {
                 // GetFile
                 self.get_element(cmd, &mut out, false);
             }
-            5 => {
+            6 => {
                 // GetDirectoryCount
                 self.get_count(cmd, &mut out, true);
             }
-            6 => {
+            7 => {
                 // GetDirectory
                 self.get_element(cmd, &mut out, true);
             }
-            7 => {
+            9 => {
                 // ReadFile
                 self.read_file(&mut cmd, &mut out);
                 return;
             }
-            8 => {
+            10 => {
                 // WriteFile
                 self.write_file(&mut cmd, &mut out);
             }
-            9 => {
+            12 => {
                 // Create
                 self.create(&mut cmd, &mut out);
             }
-            10 => {
+            13 => {
                 // Delete
                 self.delete(&mut cmd, &mut out)
             }
-            11 => {
+            14 => {
                 // Rename
                 self.rename(&mut cmd, &mut out)
             }
-            12 => {
+            15 => {
                 // GetSpecialPathCount
                 out.write_u8(1);
             }
-            13 => {
+            16 => {
                 // GetSpecialPath
                 out.write_string(&self.root);
                 out.write_string(&self.root);
             }
-            14 => {
+            17 => {
                 // SelectFile
-                // not implemented
-            }
-            15 => {
-                // Max
                 // not implemented
             }
             _ => {}
